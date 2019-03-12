@@ -1,0 +1,43 @@
+﻿DEFINE OSC 8
+OSCCON.4 = 1
+OSCCON.5 = 1
+OSCCON.6 = 1
+' Turn off the A/D converter (required for the PIC16F88)
+ANSEL = 0
+
+
+' Define variables, pin assignments, and constants
+buzz Var PORTB.0 ' Buzzer pin
+tilt1 Var word
+  B6 Var word
+tilt Var PORTA.1 ' Tilt switch pin
+
+
+' Initialize the I/O pins
+TRISA = %11111 ' designate PORTA pins as inputs 
+TRISB = %00000000 ' designate PORTB pins as outputs
+
+
+
+
+'enter:
+
+
+'PORTB = 0
+ Myloop:
+tilt1=0
+For B6 = 1 to 100        'Count from 1 to 100
+tilt1=tilt+tilt1
+pause 1
+Next B6
+if  (tilt1>95)        then        'if tilt == 1
+ 
+Buzz = 1        'Buzz = 0
+endif
+if  (tilt1<=95) then                 'if tilt == 0
+
+
+Buzz = 0        'Buzz = 1
+endif
+goto myloop
+End
